@@ -1,4 +1,3 @@
-// WOW ! Check this fancy es6 shitty server out.
 import path from 'path';
 import express from 'express';
 import cons from 'consolidate';
