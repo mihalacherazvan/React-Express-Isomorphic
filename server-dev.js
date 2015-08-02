@@ -9,10 +9,10 @@ import ReactApp from './ReactApp.min.js';
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'html');
 app.engine('html', cons.handlebars);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
 	res.render('index', { serverRender: React.renderToString(React.createElement(ReactApp)) });
