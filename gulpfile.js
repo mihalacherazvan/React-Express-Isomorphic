@@ -6,7 +6,7 @@ var react_app_build_count = 0;
 
 gulp.task('running/restarting server', ['building server'],  function () {
     plugins.nodemon({
-        script: 'build/server.js', 
+        script: 'server.js', 
         ext: 'js html', 
         env: { 'NODE_ENV': 'development' }
     })
@@ -19,7 +19,7 @@ gulp.task('building server', ['building components'], function () {
         .pipe( plugins.jshint() )
         .pipe( plugins.concat('server.js') )
 		//.pipe( plugins.uglify() )
-        .pipe( gulp.dest('./build') );
+        .pipe( gulp.dest('./') );
 });
 
 gulp.task('building components', function () {
