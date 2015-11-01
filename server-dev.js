@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import cons from 'consolidate';
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import ReactApp from './build/ReactApp.min.js';
 
@@ -14,7 +15,7 @@ app.engine('html', cons.handlebars);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-	res.render('index', { serverRender: React.renderToString(React.createElement(ReactApp)) });
+	res.render('index', { serverRender: ReactDOMServer.renderToString(React.createElement(ReactApp)) });
 });
 
 app.listen(3000, () => console.log('Server restart'));

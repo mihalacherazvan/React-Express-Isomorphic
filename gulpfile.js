@@ -45,7 +45,7 @@ gulp.task('building react client app', ['building components'], function () {
 
 gulp.task('watching', function() {
 	gulp.watch( ['server-dev.js'], ['building server'] );
-    gulp.watch( ['./components/**/*.js'], ['building react client app'] );
+    gulp.watch( ['./components/**/*.js', './app.js'], ['building react client app'] );
 });
 
 gulp.task('default', ['building react client app', 'building server', 'watching', 'running/restarting server'] );
