@@ -15,7 +15,10 @@ gulp.task('running/restarting server', ['building server'],  function () {
 gulp.task('building server', ['building components'], function () {
 	console.log('Server build nb ' + server_build_count++);
     return gulp.src( './server-dev.js' )
-        .pipe( plugins.babel() )
+        .pipe( plugins.babel({
+            presets: ['babel-preset-es2015', 'react'],
+            plugins: ['babel-plugin-transform-es2015-modules-commonjs']
+        }) )
         .pipe( plugins.jshint() )
         .pipe( plugins.concat('server.js') )
 		//.pipe( plugins.uglify() )
@@ -25,7 +28,10 @@ gulp.task('building server', ['building components'], function () {
 gulp.task('building components', function () {
 	console.log('React app build nb ' + react_app_build_count++);
     return gulp.src( './components/ReactApp.js' )
-        .pipe( plugins.babel() )
+        .pipe( plugins.babel({
+            presets: ['babel-preset-es2015', 'react'],
+            plugins: ['babel-plugin-transform-es2015-modules-commonjs']
+        }) )
         .pipe( plugins.concat('ReactApp.min.js') )
         //.pipe( plugins.uglify() )
         .pipe( gulp.dest('./build') );
@@ -33,7 +39,10 @@ gulp.task('building components', function () {
 
 gulp.task('building react client app', ['building components'], function () {
     return gulp.src( './app.js' )
-        .pipe( plugins.babel() )
+        .pipe( plugins.babel({
+            presets: ['babel-preset-es2015', 'react'],
+            plugins: ['babel-plugin-transform-es2015-modules-commonjs']
+        }) )
         .pipe( plugins.browserify({
     		debug: true
     	}) )
