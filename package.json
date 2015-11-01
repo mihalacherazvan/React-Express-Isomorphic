@@ -9,8 +9,11 @@
   "author": "Mihalache Razvan - Ionut",
   "license": "ISC",
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.0.15",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
     "gulp": "^3.9.0",
-    "gulp-babel": "^5.1.0",
+    "gulp-babel": "^6.0.0",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^1.11.2",
