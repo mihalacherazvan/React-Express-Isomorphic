@@ -16,7 +16,7 @@ gulp.task('building server', ['building components'], function () {
 	console.log('Server build nb ' + server_build_count++);
     return gulp.src( './server-dev.js' )
         .pipe( plugins.babel({
-            presets: ['babel-preset-es2015', 'react'],
+            presets: ['babel-preset-es2015'],
             plugins: ['babel-plugin-transform-es2015-modules-commonjs']
         }) )
         .pipe( plugins.jshint() )
