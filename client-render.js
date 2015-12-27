@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactApp from './build/app.js';
+import {Router} from 'react-router';
 
-window.onload = function() {
-	ReactDOM.render( <ReactApp/>, document.getElementById('react-app') );
-};
+import {routes} from './routes';
+
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+
+ReactDOM.render(
+	<Router routes={routes} history={createBrowserHistory()} />,
+	document.getElementById('react-app')
+)

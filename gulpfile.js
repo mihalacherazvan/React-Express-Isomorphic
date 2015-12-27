@@ -1,51 +1,33 @@
 var gulp  	= require('gulp'),
-	plugins = require('gulp-load-plugins')({ camelize: true });
+	plugins = require('gulp-load-plugins')({ camelize: true }),
+    browserify = require('browserify'),
+    buffer = require('vinyl-buffer'),
+    source = require('vinyl-source-stream');
 
 var server_build_count = 0;
 var react_app_build_count = 0;
 
-gulp.task('running/restarting server', ['building server'],  function () {
+var paths = {
+    server      : ['./index.js'],
+    client      : ['./client-render.js', './components/**/*.js'],
+};
+
+gulp.task('running/restarting server',  function () {
     plugins.nodemon({
-        script: 'build/server.js', 
+        script: './index.js',
         ext: 'js html', 
         env: { 'NODE_ENV': 'development' }
     })
-})
- 
-gulp.task('building server', ['building components'], function () {
-	console.log('Server build nb ' + server_build_count++);
-    return gulp.src( './server.js' )
-        .pipe( plugins.babel({
-            presets: ['babel-preset-es2015'],
-            plugins: ['babel-plugin-transform-es2015-modules-commonjs']
-        }) )
-        .pipe( plugins.jshint() )
-        .pipe( plugins.concat('server.js') )
-		//.pipe( plugins.uglify() )
-        .pipe( gulp.dest('./build') );
 });
 
-gulp.task('building components', function () {
-	console.log('React app build nb ' + react_app_build_count++);
-    return gulp.src( './components/app.js' )
-        .pipe( plugins.babel({
-            presets: ['babel-preset-es2015', 'react'],
-            plugins: ['babel-plugin-transform-es2015-modules-commonjs']
-        }) )
-        .pipe( plugins.concat('app.js') )
-        //.pipe( plugins.uglify() )
-        .pipe( gulp.dest('./build') );
-});
-
-gulp.task('building react client render', ['building components'], function () {
-    return gulp.src( './client-render.js' )
-        .pipe( plugins.babel({
-            presets: ['babel-preset-es2015', 'react'],
-            plugins: ['babel-plugin-transform-es2015-modules-commonjs']
-        }) )
-        .pipe( plugins.browserify({
-    		debug: true
-    	}) )
+gulp.task('building react client render', function () {
+    return browserify({
+            entries: './client-render.js'
+        }).
+        transform("babelify", { presets: ["es2015", "react"] })
+        .bundle()
+        .pipe( source('./client-render.js') )
+        .pipe( buffer() )
         .pipe( plugins.jshint() )
         .pipe( plugins.concat('bundle.js') )
         //.pipe( plugins.uglify() )
@@ -53,8 +35,8 @@ gulp.task('building react client render', ['building components'], function () {
 });
 
 gulp.task('watching', function() {
-	gulp.watch( ['server.js'], ['building server'] );
-    gulp.watch( ['./components/**/*.js', './client-render.js'], ['building react client render'] );
+	//gulp.watch( paths.server, ['building server'] );
+    gulp.watch( paths.client, ['building react client render'] );
 });
 
-gulp.task('default', ['building react client render', 'building server', 'watching', 'running/restarting server'] );
+gulp.task('default', ['building react client render', 'watching', 'running/restarting server'] );
