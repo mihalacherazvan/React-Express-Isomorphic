@@ -4,7 +4,7 @@ export default class ReactApp extends React.Component {
 	render () {
 		return (
 			<div>
-				<h1>Hello, Dave! You're looking well today.</h1>
+				<h1>Welcome to the Isomorphic React App Boilerplate!</h1>
 				{ this.props.children }
 			</div>
 		);
