@@ -28,4 +28,3 @@ node_modules
 
 build
 public/js/bundle.js
-server.js
