@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {match, RoutingContext} from 'react-router';
 
-import {routes} from './routes.js';
+import {routes} from './public/js/routes.js';
 
 var app = express();
 
