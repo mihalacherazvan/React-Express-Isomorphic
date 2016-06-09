@@ -1,15 +1,15 @@
-var gulp  	= require('gulp'),
-	plugins = require('gulp-load-plugins')({ camelize: true }),
-    browserify = require('browserify'),
-    buffer = require('vinyl-buffer'),
-    source = require('vinyl-source-stream'),
-    spawn = require('child_process').spawn,
+var gulp        = require('gulp'),
+	plugins     = require('gulp-load-plugins')({ camelize: true }),
+    browserify  = require('browserify'),
+    buffer      = require('vinyl-buffer'),
+    source      = require('vinyl-source-stream'),
+    spawn       = require('child_process').spawn,
     node;
 
 var client_render_count = 1;
 
 var paths = {
-    client : ['./client-render.js', './components/**/*.js'],
+    client : ['./public/js/app.js', './public/js/components/**/*.js'],
 };
 
 gulp.task('running/restarting server', ['building react client render'], function () {
@@ -28,16 +28,14 @@ gulp.task('running/restarting server', ['building react client render'], functio
     });
 });
 
-
-
 gulp.task('building react client render', function () {
     console.log('Client render build ', client_render_count++);
     return browserify({
-            entries: './client-render.js'
+            entries: './public/js/app.js'
         }).
         transform("babelify", { presets: ["es2015", "react"] })
         .bundle()
-        .pipe( source('./client-render.js') )
+        .pipe( source('./public/js/app.js') )
         .pipe( buffer() )
         .pipe( plugins.jshint() )
         .pipe( plugins.concat('bundle.js') )
