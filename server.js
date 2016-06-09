@@ -10,7 +10,7 @@ import {routes} from './routes.js';
 var app = express();
 
 // view engine setup
-app.set('views', path.join(process.cwd(), 'views'));
+app.set('views', path.join(process.cwd(), 'public' , 'views'));
 app.set('view engine', 'html');
 app.engine('html', cons.handlebars);
 app.use(express.static(path.join(process.cwd(), 'public')));
